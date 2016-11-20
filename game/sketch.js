@@ -114,7 +114,7 @@ function setup() {
     conLabel1 = createElement('h3', 'Concept?');
     conLabel1.position(char1.xpos-100, char1.ypos);
     conLabel2 = createElement('h3', 'Concept?');
-    conLabel2.position(char2.xpos+100, char2.ypos);
+    conLabel2.position(char2.xpos+100, char2.ypos+20);
     reaLabel1 = createElement('h3', 'Reason?');
     reaLabel1.position(char1.xpos-100, char1.ypos+100);
     reaLabel2 = createElement('h3', 'Reason?');
