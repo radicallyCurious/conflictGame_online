@@ -107,9 +107,9 @@ function setup() {
     //Labels and Button
     button = createButton('SAVE');
     button.position((640/2), 50);
-    label1 = createElement('h3', 'Destructive');
+    label1 = createElement('h3', 'DESTRUCTIVE');
     label1.position(char1.xpos-100, char1.ypos-150);
-    label2 = createElement('h3', 'Constructive');
+    label2 = createElement('h3', 'CONSTRUCTIVE');
     label2.position(char2.xpos+40, char2.ypos-150);
     conLabel1 = createElement('h3', 'Concept?');
     conLabel1.position(char1.xpos-100, char1.ypos);
@@ -119,9 +119,9 @@ function setup() {
     reaLabel1.position(char1.xpos-100, char1.ypos+100);
     reaLabel2 = createElement('h3', 'Reason?');
     reaLabel2.position(char2.xpos+100, char2.ypos+100);
-    diaLabel1 = createElement('h3', 'DIALOGUE');
+    diaLabel1 = createElement('h3', 'Dialogue');
     diaLabel1.position(char1.xpos-100, char1.ypos-100);
-    diaLabel2 = createElement('h3', 'DIALOGUE');
+    diaLabel2 = createElement('h3', 'Dialogue');
     diaLabel2.position(char2.xpos+40, char2.ypos-100);
     
     
@@ -133,9 +133,7 @@ function draw() {
     char2.disp();
     
     //button.mousePressed(save("mycanvas.jpg"));
-    
 }//end draw()
-
 /*
 ********************
         EOF
