@@ -105,7 +105,7 @@ function setup() {
 }//end setup()
 
 function draw() {
-	d = int(dist(mouseX, mouseY, 640/2, 50));
+	d = int(dist(mouseX, mouseY, width/2, 50));
     if(counter >= 10){
     	done();
     }else{
@@ -183,10 +183,10 @@ function dispSceneOne(){
 		console.log("running ONE");
 		textDec = createElement('textarea', 'Dialogue goes here.');
 	    textDec.position(char1.xpos-140, char1.ypos-80);
-	    textDec.id("textD");
+	    //textDec.id("textD");
 	    textCon = createElement('textarea', 'Dialogue goes here.');
 	    textCon.position(char2.xpos+40, char2.ypos-80);
-	    textCon.id("textC");
+	    //textCon.id("textC");
 	    
 	    diaLabel1 = createElement('h3', 'Dialogue');
 		diaLabel1.position(char1.xpos-100, char1.ypos-150);
@@ -208,10 +208,10 @@ function dispSceneTwo(){
 	console.log("running TWO");
 	conceptDec = createElement('textarea', 'Concept goes here.');
     conceptDec.position(char1.xpos-140, char1.ypos-80);
-    conceptDec.id("conD");
+    //conceptDec.id("conD");
     conceptCon = createElement('textarea', 'Concept goes here.');
     conceptCon.position(char2.xpos+40, char2.ypos-80);
-    conceptCon.id("conC");
+    //conceptCon.id("conC");
     
     conLabel1 = createElement('h3', 'Concept?');
     conLabel1.position(char1.xpos-100, char1.ypos-150);
@@ -232,10 +232,10 @@ function dispSceneThree(){
 	console.log("running THREE");
 	reasonDec = createElement('textarea', 'Reason goes here.');
     reasonDec.position(char1.xpos-140, char1.ypos-80);
-    reasonDec.id("reaD");
+    //reasonDec.id("reaD");
     reasonCon = createElement('textarea', 'Reason goes here.');
     reasonCon.position(char2.xpos+40, char2.ypos-80);
-    reasonCon.id("reaC");
+    //reasonCon.id("reaC");
     
 	reaLabel1 = createElement('h3', 'Reason?');
     reaLabel1.position(char1.xpos-100, char1.ypos-150);
