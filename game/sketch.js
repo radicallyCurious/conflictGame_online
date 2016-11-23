@@ -93,7 +93,7 @@ function preload(){
 function setup() {
 	createCanvas(windowWidth, windowHeight);
 	background(255);
-	frameRate(1);
+	frameRate(2);
 	
 	
 	char1 = new Char(img1, 't');
@@ -115,6 +115,7 @@ function draw() {
     	if(mouseIsPressed){
 	    	if(d < 50){
 	    		console.log("CLICK!");
+	    		
 	    		moveOn();
 			}//end if
 	    }//end if
