@@ -93,7 +93,7 @@ function preload(){
 function setup() {
 	createCanvas(windowWidth, windowHeight);
 	background(255);
-	frameRate(10);
+	frameRate(20);
 	
 	
 	char1 = new Char(img1, 't');
