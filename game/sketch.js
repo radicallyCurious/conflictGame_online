@@ -15,6 +15,10 @@ var char1;
 var char2;
 
 var table;
+var presave = [ ['', ''],
+				['', ''],
+				['', ''],
+				];
 
 //distance mouse pointer is from button:
 var d;
@@ -44,7 +48,7 @@ var sceneThree = false;
 var counter = 0;
 var dispCount;
 
-var can;
+var saved = false;
 
 /*
 ********************
@@ -86,44 +90,56 @@ function Char(person, type){
 SETUP AND DRAW
 ********************
 */
-function preload(){
-	//table = loadTable("responses.csv", "csv", "header");
-}
-
 function setup() {
 	createCanvas(windowWidth, windowHeight);
 	background(255);
-	frameRate(15);
+	frameRate(12);
 	
 	
 	char1 = new Char(img1, 't');
 	char2 = new Char(img2, 'o');
 	dispSceneOne();
     
-    
+    table = new p5.Table();
+    table.addColumn('id');
+    table.addColumn('Destructive Dialogue');
+    table.addColumn('Constructive Dialogue');
+    table.addColumn('Destructive Reason');
+    table.addColumn('Constructive Reason');
+    table.addColumn('Destructive Concept');
+    table.addColumn('Constructive Concept');
     
 }//end setup()
 
 function draw() {
+	
 	d = int(dist(mouseX, mouseY, width/2, 50));
     if(counter >= 10){
     	done();
     }else{
     	char1.disp();
     	char2.disp();
-    	
     	if(mouseIsPressed){
 	    	if(d < 50){
 	    		console.log("CLICK!");
-	    		
 	    		moveOn();
 			}//end if
 	    }//end if
     }//end else
 }//end draw()
 
-function saveStuff(){
-	
+
+
+function saveEntries(){
+	var newRow = table.addRow();
+	newRow.setNum('id', counter-1);
+	newRow.setString('Destructive Dialogue', presave[0][0]);
+	newRow.setString('Constructive Dialogue', presave[0][1]);
+	newRow.setString('Destructive Reason', presave[1][0]);
+	newRow.setString('Constructive Reason', presave[1][1]);
+	newRow.setString('Destructive Concept', presave[2][0]);
+	newRow.setString('Constructive Concept', presave[2][1]);
+	console.log("NEW TABLE ROAD ADDED!!!");
 }//end saveStuff()
 
 function moveOn(){
@@ -157,6 +173,7 @@ function drawMain(){
 	//Labels and Button
     button = createButton('SAVE');
     button.position((width/2)-20, 30);
+    button.id("button");
     
     label1 = createElement('h3', 'DESTRUCTIVE');
     label1.position(char1.xpos-100, char1.ypos-200);
@@ -164,30 +181,31 @@ function drawMain(){
     label2 = createElement('h3', 'CONSTRUCTIVE');
     label2.position(char2.xpos+40, char2.ypos-200);
     //label2.parent("main");
-    
-    
-    
-}
+}//end drawMain()
 
 function dispSceneOne(){
-	//table.set("Destructive Reason", document.getElementById("reaD"));
-	//table.set("Constructive Reason", document.getElementById("reaC"));
-
+	if(counter > 0 && counter < 10){
+		presave[2][0] = document.getElementById("reaD").value;
+		presave[2][1] = document.getElementById("reaC").value;
+		console.log(presave[2][0]);
+		console.log(presave[2][1]);
+		saveEntries();
+	}
 	counter++;
 	if(counter == 10){
 		done();
 	}else{
 		//table.set("ID", counter);
-		clear();
+		//clear();
 		removeElements();
 		drawMain();
 		console.log("running ONE");
 		textDec = createElement('textarea', 'Dialogue goes here.');
 	    textDec.position(char1.xpos-140, char1.ypos-80);
-	    //textDec.id("textD");
+	    textDec.id("textD");
 	    textCon = createElement('textarea', 'Dialogue goes here.');
 	    textCon.position(char2.xpos+40, char2.ypos-80);
-	    //textCon.id("textC");
+	    textCon.id("textC");
 	    
 	    diaLabel1 = createElement('h3', 'Dialogue');
 		diaLabel1.position(char1.xpos-100, char1.ypos-150);
@@ -200,19 +218,21 @@ function dispSceneOne(){
 }
 
 function dispSceneTwo(){
-	//table.set("Destructive Dialogue", document.getElementById("textD"));
-	//table.set("Constructive Dialogue", document.getElementById("textC"));
+	presave[0][0] = document.getElementById("textD").value;
+	presave[0][1] = document.getElementById("textC").value;
+	console.log(presave[0][0]);
+	console.log(presave[0][1]);
 
-	clear();
+	//clear();
 	removeElements();
 	drawMain();
 	console.log("running TWO");
 	conceptDec = createElement('textarea', 'Concept goes here.');
     conceptDec.position(char1.xpos-140, char1.ypos-80);
-    //conceptDec.id("conD");
+    conceptDec.id("conD");
     conceptCon = createElement('textarea', 'Concept goes here.');
     conceptCon.position(char2.xpos+40, char2.ypos-80);
-    //conceptCon.id("conC");
+    conceptCon.id("conC");
     
     conLabel1 = createElement('h3', 'Concept?');
     conLabel1.position(char1.xpos-100, char1.ypos-150);
@@ -224,19 +244,21 @@ function dispSceneTwo(){
 }
 
 function dispSceneThree(){
-	//table.set("Destructive Concept", document.getElementById("conD"));
-	//table.set("Concstructive Concept", document.getElementById("conC"));
+	presave[1][0] = document.getElementById("conD").value;
+	presave[1][1] = document.getElementById("conC").value;
+	console.log(presave[1][0]);
+	console.log(presave[1][1]);
 	
-	clear();
+	//clear();
 	removeElements();
 	drawMain();
 	console.log("running THREE");
 	reasonDec = createElement('textarea', 'Reason goes here.');
     reasonDec.position(char1.xpos-140, char1.ypos-80);
-    //reasonDec.id("reaD");
+    reasonDec.id("reaD");
     reasonCon = createElement('textarea', 'Reason goes here.');
     reasonCon.position(char2.xpos+40, char2.ypos-80);
-    //reasonCon.id("reaC");
+    reasonCon.id("reaC");
     
 	reaLabel1 = createElement('h3', 'Reason?');
     reaLabel1.position(char1.xpos-100, char1.ypos-150);
@@ -248,7 +270,10 @@ function dispSceneThree(){
 }
 
 function done(){
-	//saveTable(table, "responses.csv");
+	if(!saved){
+		saveTable(table, "responses.csv");
+		saved = true;
+	}
 	clear();
 	removeElements();
 	var finishText1 = createElement('h2', 'ALL DONE!');
