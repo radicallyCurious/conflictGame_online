@@ -19,6 +19,18 @@ var presave = [ ['', ''],
 				['', ''],
 				['', ''],
 				];
+var usedConcepts = [ 
+					['', ''],
+					['', ''],
+					['', ''],
+					['', ''],
+					['', ''],
+					['', ''],
+					['', ''],
+					['', ''],
+					['', ''],
+					['', '']
+					];
 
 //distance mouse pointer is from button:
 var d;
@@ -30,10 +42,12 @@ var conceptDec;
 var conceptCon;
 var reasonDec;
 var reasonCon;
+var usedConceptsDisp;
 //Labels and Button
 var button;
 var label1;
 var label2;
+var label3;
 var conLabel1;
 var conLabel2;
 var reaLabel1;
@@ -93,7 +107,7 @@ SETUP AND DRAW
 function setup() {
 	createCanvas(windowWidth, windowHeight);
 	background(255);
-	frameRate(12);
+	frameRate(11);
 	
 	
 	char1 = new Char(img1, 't');
@@ -113,8 +127,8 @@ function setup() {
 
 function draw() {
 	
-	d = int(dist(mouseX, mouseY, width/2, 50));
-    if(counter >= 10){
+	d = int(dist(mouseX, mouseY, width/2-400, 50));
+    if(counter == 10){
     	done();
     }else{
     	char1.disp();
@@ -139,7 +153,7 @@ function saveEntries(){
 	newRow.setString('Constructive Reason', presave[1][1]);
 	newRow.setString('Destructive Concept', presave[2][0]);
 	newRow.setString('Constructive Concept', presave[2][1]);
-	console.log("NEW TABLE ROAD ADDED!!!");
+	console.log("NEW TABLE ROW ADDED!!!");
 }//end saveStuff()
 
 function moveOn(){
@@ -171,28 +185,36 @@ function drawMain(){
     char2.disp();
 
 	//Labels and Button
-    button = createButton('SAVE');
-    button.position((width/2)-20, 30);
+    button = createButton('NEXT');
+    button.position((width/2)-400, 30);
     button.id("button");
     
-    label1 = createElement('h3', 'DESTRUCTIVE');
-    label1.position(char1.xpos-100, char1.ypos-200);
+    label1 = createElement('h3', 'Distressed/Ineffective System');
+    label1.position(char1.xpos-150, char1.ypos-200);
     //label1.parent("main");
-    label2 = createElement('h3', 'CONSTRUCTIVE');
-    label2.position(char2.xpos+40, char2.ypos-200);
+    label2 = createElement('h3', 'Effective System');
+    label2.position(char2.xpos+0, char2.ypos-200);
     //label2.parent("main");
+    label3 = createElement('h3', 'Concepts Used');
+    label3.position(width-200, 20);
+    
+    usedConceptsDisp = createElement('textarea', usedConcepts);
+    usedConceptsDisp.position(width-200, 100);
+    
+    console.log(counter);
 }//end drawMain()
 
 function dispSceneOne(){
-	if(counter > 0 && counter < 10){
+	if(counter > 0 && counter <= 10){
 		presave[2][0] = document.getElementById("reaD").value;
 		presave[2][1] = document.getElementById("reaC").value;
 		console.log(presave[2][0]);
 		console.log(presave[2][1]);
 		saveEntries();
 	}
-	counter++;
+	
 	if(counter == 10){
+		saveEntries();
 		done();
 	}else{
 		//table.set("ID", counter);
@@ -212,7 +234,7 @@ function dispSceneOne(){
 		diaLabel2 = createElement('h3', 'Dialogue');
 		diaLabel2.position(char2.xpos+40, char2.ypos-150);
 		
-		dispCount = createP('Count = ' + counter);
+		dispCount = createP('Scene ' + (counter+1));
 		dispCount.position(5, 5);
 	}
 }
@@ -224,14 +246,16 @@ function dispSceneTwo(){
 	console.log(presave[0][1]);
 
 	//clear();
-	removeElements();
-	drawMain();
+	//removeElements();
+	//drawMain();
 	console.log("running TWO");
+	diaLabel1.remove();
+	diaLabel2.remove();
 	conceptDec = createElement('textarea', 'Concept goes here.');
-    conceptDec.position(char1.xpos-140, char1.ypos-80);
+    conceptDec.position(char1.xpos+100, char1.ypos-0);
     conceptDec.id("conD");
     conceptCon = createElement('textarea', 'Concept goes here.');
-    conceptCon.position(char2.xpos+40, char2.ypos-80);
+    conceptCon.position(char2.xpos+100, char2.ypos-0);
     conceptCon.id("conC");
     
     conLabel1 = createElement('h3', 'Concept?');
@@ -239,7 +263,7 @@ function dispSceneTwo(){
     conLabel2 = createElement('h3', 'Concept?');
     conLabel2.position(char2.xpos+40, char2.ypos-150);
     
-    dispCount = createP('Count = ' + counter);
+    dispCount = createP('Scene ' + (counter+1));
 	dispCount.position(5, 5);
 }
 
@@ -248,16 +272,22 @@ function dispSceneThree(){
 	presave[1][1] = document.getElementById("conC").value;
 	console.log(presave[1][0]);
 	console.log(presave[1][1]);
+	usedConcepts[counter][0] = document.getElementById("conD").value;
+	usedConcepts[counter][1] = document.getElementById("conC").value;
+	console.log("saved " + usedConcepts[counter][0]);
+	console.log("saved " + usedConcepts[counter][1]);
 	
 	//clear();
-	removeElements();
-	drawMain();
+	//removeElements();
+	//drawMain();
 	console.log("running THREE");
+	conLabel1.remove();
+	conLabel2.remove();
 	reasonDec = createElement('textarea', 'Reason goes here.');
-    reasonDec.position(char1.xpos-140, char1.ypos-80);
+    reasonDec.position(char1.xpos+100, char1.ypos+80);
     reasonDec.id("reaD");
     reasonCon = createElement('textarea', 'Reason goes here.');
-    reasonCon.position(char2.xpos+40, char2.ypos-80);
+    reasonCon.position(char2.xpos+100, char2.ypos+80);
     reasonCon.id("reaC");
     
 	reaLabel1 = createElement('h3', 'Reason?');
@@ -265,8 +295,9 @@ function dispSceneThree(){
     reaLabel2 = createElement('h3', 'Reason?');
     reaLabel2.position(char2.xpos+40, char2.ypos-150);
     
-    dispCount = createP('Count = ' + counter);
+    dispCount = createP('Scene ' + (counter+1));
 	dispCount.position(5, 5);
+	counter++;
 }
 
 function done(){
