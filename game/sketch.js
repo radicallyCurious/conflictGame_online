@@ -32,6 +32,8 @@ var usedConcepts = [
 					['', '']
 					];
 
+var saveImg;
+var savedFrames = [];
 //distance mouse pointer is from button:
 var d;
 
@@ -55,6 +57,8 @@ var reaLabel2;
 var diaLabel1;
 var diaLabel2;
 
+var input1;
+
 //screen control
 var sceneOne = true;
 var sceneTwo = false;
@@ -63,6 +67,8 @@ var counter = 0;
 var dispCount;
 
 var saved = false;
+
+var canv;
 
 /*
 ********************
@@ -105,7 +111,8 @@ SETUP AND DRAW
 ********************
 */
 function setup() {
-	createCanvas(windowWidth, windowHeight);
+	canv = createCanvas(windowWidth, windowHeight);
+	canv.id("canSave");
 	background(255);
 	frameRate(11);
 	
@@ -126,7 +133,6 @@ function setup() {
 }//end setup()
 
 function draw() {
-	
 	d = int(dist(mouseX, mouseY, width/2-400, 50));
     if(counter == 10){
     	done();
@@ -143,7 +149,7 @@ function draw() {
 }//end draw()
 
 
-
+//setup the csv file
 function saveEntries(){
 	var newRow = table.addRow();
 	newRow.setNum('id', counter-1);
@@ -156,6 +162,7 @@ function saveEntries(){
 	console.log("NEW TABLE ROW ADDED!!!");
 }//end saveStuff()
 
+//which scene is shoing?
 function moveOn(){
 	if(sceneOne == true && sceneTwo == false){
 		sceneOne = false;
@@ -180,6 +187,7 @@ function moveOn(){
 	}//end else if block
 }//end moveOn()
 
+//draw characters and buttons and labels that are always there
 function drawMain(){
 	char1.disp();
     char2.disp();
@@ -202,10 +210,20 @@ function drawMain(){
     usedConceptsDisp.position(width-200, 100);
     
     console.log(counter);
+    
+    
+    /** SOLUTION TO CNAVAS SAVING PORBLEM!!!!!!! **/
+    input1 = new CanvasInput({
+    	canvas: document.getElementById("canSave")
+    	
+    });
 }//end drawMain()
 
 function dispSceneOne(){
 	if(counter > 0 && counter <= 10){
+		textToCan(document.getElementById("canSave"), document.getElementById("reaD").value, char1.xpos+100, char1.ypos+80);
+		textToCan(document.getElementById("canSave"), document.getElementById("reaC").value, char2.xpos+100, char2.ypos+80);
+		save("myCanvas.png");
 		presave[2][0] = document.getElementById("reaD").value;
 		presave[2][1] = document.getElementById("reaC").value;
 		console.log(presave[2][0]);
@@ -300,6 +318,7 @@ function dispSceneThree(){
 	counter++;
 }
 
+//save all data to csv
 function done(){
 	if(!saved){
 		saveTable(table, "responses.csv");
@@ -312,6 +331,11 @@ function done(){
 	var finishText2 = createP('You have completed the dialogue input. A csv file should have been downloaded automatically.');
 	finishText2.position(100, 100);
 }//end done()
+
+function textToCan(canvas, text, x, y){
+	ctx = canvas.getContext("2d");
+	ctx.fillText(text, x, y);
+}
 
 /*
 ********************
