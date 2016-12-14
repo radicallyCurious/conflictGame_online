@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta charset="UTF-8">
+    <meta title="author" content="Luc Pitre">
+    <title>Conflict Dialogue</title>
+    <link rel="stylesheet" href="../stylesheets/stylesheet.css"/>
+    </head>
+
+  <body>
+
+
+
+  <div class="main">
+  	<textarea id="textD" rows="4" cols="30" placeholder="ineffective dialogue"></textarea>
+  	<textarea id="textC" rows="4" cols="30" placeholder="effective dialogue"></textarea>
+
+  	<textarea id="conD" rows="4" cols="30" placeholder="ineffective concept"></textarea>
+  	<textarea id="conC" rows="4" cols="30" placeholder="effective concept"></textarea>
+
+  	<textarea id="reaD" rows="4" cols="30" placeholder="ineffective reason"></textarea>
+  	<textarea id="reaC" rows="4" cols="30" placeholder="effective reason"></textarea>
+
+  	<input id="button1" type="button" value="move on" />
+
+
+  </div>
+
+  <canvas id="canv" height="1500" width="1500"></canvas>
+
+  <script>
+  	var pic1Loc = "person1.jpg";//location of person1 picture
+	var pic2Loc = "person2.jpg";//location of person2 picture
+
+	var img1;
+	var img2;
+
+	var canv = document.getElementById("canv");
+	var context = canv.getContext("2d");
+	//create array of strings
+
+	var strings = ["", "", "", "", "", ""];
+
+  	document.getElementById("button1").onclick = function(){
+	
+	console.log("working!");
+
+	strings[0] = document.getElementById("textD").value;
+	strings[1] = document.getElementById("textC").value;
+	strings[2] = document.getElementById("conD").value;
+	strings[3] = document.getElementById("conC").value;
+	strings[4] = document.getElementById("reaD").value;
+	strings[5] = document.getElementById("reaC").value;
+	//grab image
+	img1 = new Image();
+	img2 = new Image();
+
+	img1.src = pic1Loc;
+	img2.src = pic2Loc;
+
+	context.textBaseline = "top";
+	context.drawImage(img1, 900, 100);
+	context.drawImage(img2, 1200, 100);
+	//ineffective side
+	//text
+	context.strokeRect(800, 20, 200, 80);
+	context.font="14px Arial";
+	context.fillText(strings[0], 800, 20, 200);
+	//concept
+	context.strokeRect(800, 240, 200, 80);
+	context.font="14px Arial";
+	context.fillText(strings[2], 800, 240, 200);
+	//reason
+	context.strokeRect(800, 360, 200, 80);
+	context.font="14px Arial";
+	context.fillText(strings[2], 800, 360, 200);
+
+	//effective side
+	//text
+	context.strokeRect(1100, 20, 200, 80);
+	context.font="14px Arial";
+	context.fillText(strings[1], 1100, 20, 200);
+	//concept
+
+	//reason
+
+  };
+  </script>
+
+  
+
+  </body>
+</html>
