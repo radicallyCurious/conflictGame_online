@@ -24,20 +24,23 @@
 
   	<input id="button1" type="button" value="move on" />
 
+  	<input id="buttonSave" type="button" value="save image"/>
+
 
   </div>
 
   <canvas id="canv" height="1500" width="1500"></canvas>
 
+  <script src="process.js"></script>
+
   <script>
   	var pic1Loc = "person1.jpg";//location of person1 picture
 	var pic2Loc = "person2.jpg";//location of person2 picture
-
 	var img1;
 	var img2;
-
 	var canv = document.getElementById("canv");
 	var context = canv.getContext("2d");
+	var lHeight = 15;
 	//create array of strings
 
 	var strings = ["", "", "", "", "", ""];
@@ -60,32 +63,47 @@
 	img2.src = pic2Loc;
 
 	context.textBaseline = "top";
-	context.drawImage(img1, 900, 100);
-	context.drawImage(img2, 1200, 100);
+	context.drawImage(img1, 900, 150);
+	context.drawImage(img2, 1200, 150);
 	//ineffective side
 	//text
-	context.strokeRect(800, 20, 200, 80);
+	context.strokeRect(800, 70, 200, 80);
 	context.font="14px Arial";
-	context.fillText(strings[0], 800, 20, 200);
+	wrapText(context, strings[0], 800, 70, 200, lHeight);
 	//concept
-	context.strokeRect(800, 240, 200, 80);
+	context.strokeRect(800, 290, 200, 80);
 	context.font="14px Arial";
-	context.fillText(strings[2], 800, 240, 200);
+	wrapText(context, strings[2], 800, 290, 200, lHeight);
 	//reason
-	context.strokeRect(800, 360, 200, 80);
+	context.strokeRect(800, 410, 200, 80);
 	context.font="14px Arial";
-	context.fillText(strings[2], 800, 360, 200);
+	wrapText(context, strings[4], 800, 410, 200, lHeight);
 
 	//effective side
 	//text
-	context.strokeRect(1100, 20, 200, 80);
+	context.strokeRect(1100, 70, 200, 80);
 	context.font="14px Arial";
-	context.fillText(strings[1], 1100, 20, 200);
+	wrapText(context, strings[1], 1100, 70, 200, lHeight);
 	//concept
-
+	context.strokeRect(1100, 290, 200, 80);
+	context.font="14px Arial";
+	wrapText(context, strings[3], 1100, 290, 200, lHeight);
 	//reason
+	context.strokeRect(1100, 410, 200, 80);
+	context.font="14px Arial";
+	wrapText(context, strings[5], 1100, 410, 200, lHeight);
 
-  };
+  	};
+  </script>
+
+  <script>
+  	document.getElementById("buttonSave").onClick = function(){
+  		console.log("saving...");
+  		/*canvas = document.getElementById("canv");
+
+  		var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+		window.location.href=image;*/
+  	};
   </script>
 
   
